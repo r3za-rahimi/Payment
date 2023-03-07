@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 import org.hibernate.envers.Audited;
 import org.hibernate.envers.RelationTargetAuditMode;
+import org.hibernate.validator.constraints.UniqueElements;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.util.List;
@@ -19,6 +20,7 @@ public class Customer extends AbstractEntity {
     private String firstName;
     private String lastName;
     private Integer age;
+
     private String cardNumber;
     private Long balance;
 

@@ -3,6 +3,7 @@ package com.example.paymentta.controller;
 import com.example.paymentta.dto.convertor.BaseConvertor;
 import com.example.paymentta.exceptions.ServiceException;
 import com.example.paymentta.service.AbstractService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,7 +22,7 @@ public class AbstractController <E,D>{
 
     @PostMapping()
     @Transactional
-    public void add(@RequestBody D d) throws ServiceException {
+    public void add(@Valid @RequestBody D d) throws ServiceException {
 
 
         service.insert(converter.convertDto(d));
