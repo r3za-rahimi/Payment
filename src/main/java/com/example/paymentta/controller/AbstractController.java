@@ -23,7 +23,7 @@ public class AbstractController <E,D>{
     @Transactional
     public void add(@RequestBody D d) throws ServiceException {
 
-        System.out.println("lkjh");
+
         service.insert(converter.convertDto(d));
     }
 
