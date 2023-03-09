@@ -36,10 +36,7 @@ public class CustomerService extends AbstractService<CustomerRepository , Custom
 //
 //    }
 
-    public Customer withdraw(String cardNumber, Long amount) {
-
-        Customer c = super.getRepository().findByCardNumber(cardNumber);
-
+    public Customer withdraw(Customer c , Long amount) {
 
         if (c!= null && amount < c.getBalance()) {
 
@@ -52,9 +49,7 @@ public class CustomerService extends AbstractService<CustomerRepository , Custom
         return null;
     }
 
-    public Customer deposit(String cardNumber, Long amount) {
-
-        Customer c = super.getRepository().findByCardNumber(cardNumber);
+    public Customer deposit(Customer c ,Long amount) {
 
         if (c != null) {
 
@@ -68,7 +63,18 @@ public class CustomerService extends AbstractService<CustomerRepository , Custom
 
     public Customer GetByCardNumber(String cardNumber) {
 
-        Customer c =  super.getRepository().findByCardNumber(cardNumber);
+        Customer c =  repository.findByCardNumber(cardNumber);
+        if (c!= null){
+
+            return c;
+        }
+        return null;
+
+    }
+
+    public Customer GetByAccountNumber(String account) {
+
+        Customer c =  repository.findByAccountNumber(account);
         if (c!= null){
 
             return c;

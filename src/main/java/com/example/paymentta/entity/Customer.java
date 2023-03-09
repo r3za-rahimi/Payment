@@ -20,13 +20,13 @@ public class Customer extends AbstractEntity {
     private String firstName;
     private String lastName;
     private Integer age;
-
     private String cardNumber;
+    private String accountNumber;
     private Long balance;
 
 
     @OneToMany( cascade = CascadeType.ALL , fetch = FetchType.EAGER)
-    @JoinColumn(foreignKey = @ForeignKey(name = "cardNumber"))
+//    @JoinColumn(foreignKey = @ForeignKey(name = "cardNumber"))
     private List<Transaction> transaction;
 
 

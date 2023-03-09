@@ -2,24 +2,33 @@ package com.example.paymentta.controller;
 
 import com.example.paymentta.dto.TransactionDto;
 
+import com.example.paymentta.dto.TransactionType;
 import com.example.paymentta.entity.Transaction;
 import com.example.paymentta.exceptions.ServiceException;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.Date;
 
 @RestController
 @RequestMapping("/transaction")
 public class TransactionController extends AbstractController<Transaction , TransactionDto>{
 
-//    @Override
-//    @PostMapping("/cardToCard")
-//    public void add(@RequestBody TransactionDto transaction) throws ServiceException {
-//        super.add(transaction);
-//    }
 
 
+    @PostMapping("/account")
+    public void addA(@RequestBody TransactionDto transactionDto) throws ServiceException {
 
+        transactionDto.setType(TransactionType.ACCOUNT);
+        service.insert(converter.convertDto(transactionDto));
+
+    }
+
+
+    @Override
+    @PostMapping("/card")
+    public void add(@RequestBody TransactionDto transactionDto) throws ServiceException {
+        transactionDto.setType(TransactionType.CARDTOCARD);
+        service.insert(converter.convertDto(transactionDto));
+
+    }
 
     @PostMapping("/get")
     public void getTrx(@RequestBody TransactionDto trx) {

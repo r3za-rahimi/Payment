@@ -14,10 +14,10 @@ public class AbstractController <E,D>{
 
 
     @Autowired
-    private AbstractService<? extends JpaRepository<E, Long>, E> service;
+    protected AbstractService<? extends JpaRepository<E, Long>, E> service;
 
     @Autowired
-    private BaseConvertor<D, E> converter;
+    protected BaseConvertor<D, E> converter;
 
 
     @PostMapping()
@@ -28,7 +28,4 @@ public class AbstractController <E,D>{
         service.insert(converter.convertDto(d));
     }
 
-    public AbstractService<? extends JpaRepository<E, Long>, E> getService() {
-        return service;
-    }
 }

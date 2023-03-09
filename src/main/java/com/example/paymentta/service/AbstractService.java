@@ -11,7 +11,7 @@ import java.util.Optional;
 public abstract class AbstractService <R extends JpaRepository<E, Long> , E>{
 
     @Autowired
-    private  R repository;
+    protected  R repository;
 
 
     public void insert(E e) throws ServiceException {

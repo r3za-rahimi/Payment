@@ -1,14 +1,18 @@
 package com.example.paymentta.dto;
 
-import com.example.paymentta.entity.Customer;
 import lombok.Data;
 
-import java.util.Date;
 @Data
-public class TransactionDto   {
+public class TransactionDto {
 
     private Long id;
-    private String sender;
-    private String receiver;
+    private String senderCard;
+    private String receiverCard;
+    private String senderAccount;
+    private String receiverAccount;
     private Long amount;
+
+
+    private TransactionType type;
+
 }
