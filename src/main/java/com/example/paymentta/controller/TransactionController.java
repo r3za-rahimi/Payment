@@ -5,11 +5,12 @@ import com.example.paymentta.dto.TransactionDto;
 import com.example.paymentta.dto.TransactionType;
 import com.example.paymentta.entity.Transaction;
 import com.example.paymentta.exceptions.ServiceException;
+import com.example.paymentta.service.TransactionService;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/transaction")
-public class TransactionController extends AbstractController<Transaction , TransactionDto>{
+public class TransactionController extends AbstractController<Transaction , TransactionDto , TransactionService>{
 
 
 

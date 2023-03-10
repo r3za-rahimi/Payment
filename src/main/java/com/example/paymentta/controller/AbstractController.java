@@ -10,11 +10,11 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-public class AbstractController <E,D>{
+public class AbstractController <E,D , S extends AbstractService<? extends JpaRepository<E, Long>, E> >{
 
 
     @Autowired
-    protected AbstractService<? extends JpaRepository<E, Long>, E> service;
+    protected S service;
 
     @Autowired
     protected BaseConvertor<D, E> converter;

@@ -10,7 +10,9 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/customer")
-public class CustomerController extends  AbstractController<Customer , CustomerDto>{
+public class CustomerController extends  AbstractController<Customer , CustomerDto , CustomerService> {
+
+
 
 
 
