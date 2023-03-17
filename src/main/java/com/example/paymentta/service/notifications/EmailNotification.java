@@ -37,7 +37,7 @@ public class EmailNotification implements Notification {
         Session session = Session.getInstance(prop, new Authenticator() {
             @Override
             protected PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication("  usseerrrr ", "  passs wooord   ");
+                return new PasswordAuthentication("20000000000", "r");
             }
         });
 

@@ -6,10 +6,8 @@ import lombok.Data;
 public class TransactionDto {
 
     private Long id;
-    private String senderCard;
-    private String receiverCard;
-    private String senderAccount;
-    private String receiverAccount;
+    private String source;
+    private String destination;
     private Long amount;
 
 

@@ -19,9 +19,6 @@ import java.util.Date;
 public class TransactionService extends AbstractService<TransactionRepository ,Transaction> {
     @Autowired
     private CustomerService customerService;
-//    @Autowired
-//    private TransactionRepository transactionRepository;
-//
     @Autowired
     private NotificationSender notificationSender;
 
@@ -48,9 +45,9 @@ public class TransactionService extends AbstractService<TransactionRepository ,T
         trxEntity.setSender(sender);
         trxEntity.setDate(new Date());
 
-        super.getRepository().save(trxEntity);
+        repository.save(trxEntity);
 
-        notificationSender.send(NotificationType.EMAIL, new NotificationText("kasr ", sender.getCardNumber(), trx.getAmount(), trxEntity.getDate()));
+        notificationSender.send(NotificationType.SMS, new NotificationText("kasr ", sender.getCardNumber(), trx.getAmount(), trxEntity.getDate()));
         notificationSender.send(NotificationType.SMS, new NotificationText("plus", receiver.getCardNumber(), trx.getAmount(), trxEntity.getDate()));
 
 

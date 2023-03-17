@@ -4,62 +4,37 @@ import com.example.paymentta.dto.TransactionDto;
 import com.example.paymentta.entity.Transaction;
 import com.example.paymentta.exceptions.ServiceException;
 import com.example.paymentta.service.CustomerService;
+import org.mapstruct.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
 
-@Service
-public class TransactionConvertor implements BaseConvertor<TransactionDto, Transaction>{
+@Mapper(componentModel = "spring")
+public abstract class TransactionConvertor implements BaseConvertor<TransactionDto, Transaction>{
+
 
     @Autowired
-    private CustomerService customerService;
+     private CustomerService customerService;
+
+
     @Override
-    public Transaction convertDto(TransactionDto transactionDto) throws ServiceException {
+    public abstract Transaction convertDto(TransactionDto transactionDto) throws ServiceException ;
+
+
+    @AfterMapping
+    public void setcustomers(TransactionDto transactionDto , @MappingTarget Transaction trx) throws ServiceException {
 
         switch (transactionDto.getType()){
-            case CARDTOCARD -> {return convertDtoCard(transactionDto);}
-            case ACCOUNT -> {return convertDtoAccount(transactionDto);}
-            default ->  throw new ServiceException("Can not recognized your TransactionType");
 
+            case CARDTOCARD -> {
+                trx.setSender(customerService.GetByCardNumber(transactionDto.getSource()));
+                trx.setReceiver(customerService.GetByCardNumber(transactionDto.getDestination()));
+            }
+            case ACCOUNT -> {
+                trx.setSender(customerService.GetByAccountNumber(transactionDto.getSource()));
+                trx.setReceiver(customerService.GetByAccountNumber(transactionDto.getDestination()));
+            }
         }
-
-
-
-    }
-
-    private Transaction convertDtoCard(TransactionDto transactionDto) {
-        Transaction trx = new Transaction();
-        trx.setAmount(transactionDto.getAmount());
-        trx.setDate(new Date());
-        trx.setSender(customerService.GetByCardNumber(transactionDto.getSenderCard()));
-        trx.setReceiver(customerService.GetByCardNumber(transactionDto.getReceiverCard()));
-
-        return trx;
-
-    }
-
-
-    private Transaction convertDtoAccount(TransactionDto transactionDto) {
-        Transaction trx = new Transaction();
-        trx.setAmount(transactionDto.getAmount());
-        trx.setDate(new Date());
-        trx.setSender(customerService.GetByAccountNumber(transactionDto.getSenderAccount()));
-        trx.setReceiver(customerService.GetByAccountNumber(transactionDto.getReceiverAccount()));
-
-        return trx;
-
-    }
-
-    @Override
-    public TransactionDto convertEntity(Transaction transaction) {
-        TransactionDto trxDto = new TransactionDto();
-        trxDto.setAmount(transaction.getAmount());
-        trxDto.setSenderCard(transaction.getSender().getCardNumber());
-        trxDto.setReceiverCard(transaction.getReceiver().getCardNumber());
-        trxDto.setSenderAccount(transaction.getSender().getAccountNumber());
-        trxDto.setReceiverAccount(transaction.getReceiver().getAccountNumber());
-
-        return trxDto;
     }
 }

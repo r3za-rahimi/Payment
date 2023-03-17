@@ -26,7 +26,6 @@ public class Customer extends AbstractEntity {
 
 
     @OneToMany( cascade = CascadeType.ALL , fetch = FetchType.EAGER)
-//    @JoinColumn(foreignKey = @ForeignKey(name = "cardNumber"))
     private List<Transaction> transaction;
 
 
