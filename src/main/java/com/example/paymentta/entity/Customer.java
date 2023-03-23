@@ -1,5 +1,6 @@
 package com.example.paymentta.entity;
 
+import com.example.paymentta.entity.account.Account;
 import jakarta.persistence.*;
 import lombok.Data;
 import org.hibernate.envers.Audited;
@@ -20,12 +21,10 @@ public class Customer extends AbstractEntity {
     private String firstName;
     private String lastName;
     private Integer age;
-    private String cardNumber;
-    private String accountNumber;
-    private Long balance;
+    @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    private List<Account> accounts;
 
-
-    @OneToMany( cascade = CascadeType.ALL , fetch = FetchType.EAGER)
+    @OneToMany( cascade = CascadeType.ALL , fetch = FetchType.LAZY)
     private List<Transaction> transaction;
 
 

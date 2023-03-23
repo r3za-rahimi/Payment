@@ -2,6 +2,7 @@ package com.example.paymentta.service;
 
 import com.example.paymentta.entity.Customer;
 import com.example.paymentta.entity.Transaction;
+import com.example.paymentta.entity.account.Account;
 import com.example.paymentta.exceptions.ServiceException;
 import com.example.paymentta.repository.TransactionRepository;
 
@@ -18,7 +19,7 @@ import java.util.Date;
 
 public class TransactionService extends AbstractService<TransactionRepository ,Transaction> {
     @Autowired
-    private CustomerService customerService;
+    private AccountService accountService;
     @Autowired
     private NotificationSender notificationSender;
 
@@ -26,14 +27,14 @@ public class TransactionService extends AbstractService<TransactionRepository ,T
     @Transactional(rollbackFor = ServiceException.class)
     public void insert(Transaction trx) throws ServiceException {
 
-        Customer sender = customerService.withdraw(trx.getSender(), trx.getAmount());
+        Account sender = accountService.withdraw(trx.getSenderAccount(), trx.getAmount());
 
 
         if (sender == null) {
             throw new ServiceException(" your balance is not enough");
         }
 
-        Customer receiver = customerService.deposit(trx.getReceiver(), trx.getAmount());
+        Account receiver = accountService.deposit(trx.getReceiverAccount(), trx.getAmount());
 
         if (receiver == null) {
             throw new ServiceException("receiver card number is not valid ");
@@ -41,14 +42,16 @@ public class TransactionService extends AbstractService<TransactionRepository ,T
 
         Transaction trxEntity= new Transaction();
         trxEntity.setAmount(trx.getAmount());
-        trxEntity.setReceiver(receiver);
-        trxEntity.setSender(sender);
+        trxEntity.setReceiver(trx.getReceiver());
+        trxEntity.setSender(trx.getSender());
+        trxEntity.setReceiverAccount(receiver);
+        trxEntity.setSenderAccount(sender);
         trxEntity.setDate(new Date());
 
         repository.save(trxEntity);
 
-        notificationSender.send(NotificationType.SMS, new NotificationText("kasr ", sender.getCardNumber(), trx.getAmount(), trxEntity.getDate()));
-        notificationSender.send(NotificationType.SMS, new NotificationText("plus", receiver.getCardNumber(), trx.getAmount(), trxEntity.getDate()));
+//        notificationSender.send(NotificationType.SMS, new NotificationText("kasr ", sender.getCardNumber(), trx.getAmount(), trxEntity.getDate()));
+//        notificationSender.send(NotificationType.SMS, new NotificationText("plus", receiver.getCardNumber(), trx.getAmount(), trxEntity.getDate()));
 
 
 

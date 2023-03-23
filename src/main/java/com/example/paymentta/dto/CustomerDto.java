@@ -14,8 +14,7 @@ public class CustomerDto {
     private String lastName;
 
     private Integer age;
-    @Pattern(regexp = "\\d{8}" , message = "check your Card")
-    private String cardNumber;
+
     private Long balance;
 
 }

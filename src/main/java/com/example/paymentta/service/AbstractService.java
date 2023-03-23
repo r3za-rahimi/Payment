@@ -28,10 +28,6 @@ public abstract class AbstractService <R extends JpaRepository<E, Long> , E>{
         return repository.findById(id);
     }
 
-    public R getRepository() {
-        return repository;
-    }
-
 
     //    public  E getById(Long id) throws ServiceException {
 //
