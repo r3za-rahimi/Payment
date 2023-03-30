@@ -21,6 +21,8 @@ public class TransactionService extends AbstractService<TransactionRepository ,T
     @Autowired
     private AccountService accountService;
     @Autowired
+    private CustomerService customerService;
+    @Autowired
     private NotificationSender notificationSender;
 
     @Override
@@ -40,18 +42,15 @@ public class TransactionService extends AbstractService<TransactionRepository ,T
             throw new ServiceException("receiver card number is not valid ");
         }
 
-        Transaction trxEntity= new Transaction();
-        trxEntity.setAmount(trx.getAmount());
-        trxEntity.setReceiver(trx.getReceiver());
-        trxEntity.setSender(trx.getSender());
-        trxEntity.setReceiverAccount(receiver);
-        trxEntity.setSenderAccount(sender);
-        trxEntity.setDate(new Date());
 
-        repository.save(trxEntity);
+        trx.setSender(sender.getCustomer());
+        trx.setReceiver(receiver.getCustomer());
+        trx.setDate(new Date());
+        repository.save(trx);
 
-//        notificationSender.send(NotificationType.SMS, new NotificationText("kasr ", sender.getCardNumber(), trx.getAmount(), trxEntity.getDate()));
-//        notificationSender.send(NotificationType.SMS, new NotificationText("plus", receiver.getCardNumber(), trx.getAmount(), trxEntity.getDate()));
+
+        notificationSender.send(NotificationType.SMS, new NotificationText("Deduction money from your account ", sender.getCard().getCardNumber().toString(), trx.getAmount(), trx.getDate()));
+        notificationSender.send(NotificationType.SMS, new NotificationText("addition Money to your account", receiver.getCard().getCardNumber().toString(), trx.getAmount(), trx.getDate()));
 
 
 

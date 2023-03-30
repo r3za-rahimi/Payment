@@ -1,5 +1,7 @@
 package com.example.paymentta.service.notifications;
 
+import org.springframework.stereotype.Service;
+
 public class SmsNotification implements Notification {
 
 

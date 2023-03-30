@@ -21,7 +21,7 @@ public class Customer extends AbstractEntity {
     private String firstName;
     private String lastName;
     private Integer age;
-    @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "customer" , cascade = CascadeType.ALL , fetch = FetchType.LAZY)
     private List<Account> accounts;
 
     @OneToMany( cascade = CascadeType.ALL , fetch = FetchType.LAZY)

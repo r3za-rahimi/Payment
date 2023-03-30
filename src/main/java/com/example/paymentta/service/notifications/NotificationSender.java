@@ -10,8 +10,10 @@ public class NotificationSender {
     public void send(NotificationType type , NotificationText text){
 
         switch (type){
+
+
             case SMS -> new SmsNotification().notifyUser(text);
-            case EMAIL -> new EmailNotification().notifyUser(text);
+            case MAIL -> new EmailNotification().notifyUser(text);
             case PUSH -> new PushNotification().notifyUser(text);
 
         }

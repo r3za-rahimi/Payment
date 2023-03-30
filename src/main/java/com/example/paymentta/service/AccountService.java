@@ -17,7 +17,6 @@ public class AccountService extends AbstractService<AccountRepository, Account> 
 
     public Account withdraw(Account c, Long amount) throws ServiceException {
 
-        System.out.println( "sfgd  " +c);
         if (c != null && amount < c.getBalance()) {
 
             c.setBalance(c.getBalance() - amount);

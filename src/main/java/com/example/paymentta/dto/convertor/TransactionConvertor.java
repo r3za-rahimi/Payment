@@ -28,9 +28,8 @@ public abstract class TransactionConvertor implements BaseConvertor<TransactionD
     public abstract Transaction convertDto(TransactionDto transactionDto) throws ServiceException;
 
 
-
     @AfterMapping
-public void setcustomers( @MappingTarget Transaction trx, TransactionDto transactionDto) throws ServiceException {
+    public void setcustomers(@MappingTarget Transaction trx, TransactionDto transactionDto) throws ServiceException {
 
 
         switch (transactionDto.getType()) {
@@ -42,8 +41,7 @@ public void setcustomers( @MappingTarget Transaction trx, TransactionDto transac
 
                 trx.setSenderAccount(senderAccount);
                 trx.setReceiverAccount(receiverAccount);
-                trx.setSender(customerService.getByAccount(senderAccount));
-                trx.setReceiver(customerService.getByAccount(receiverAccount));
+
             }
             case ACCOUNT -> {
 

@@ -41,9 +41,9 @@ public class CustomerService extends AbstractService<CustomerRepository , Custom
     }
 
 
-    public Customer getByAccount(Account account) {
+    public Customer getById(Long accountId) {
 
-        Customer c =  repository.findByAccounts(account);
+        Customer c =  repository.findById(accountId).get();
         System.out.println(c);
         if (c!= null){
 

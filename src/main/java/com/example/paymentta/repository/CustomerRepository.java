@@ -11,6 +11,6 @@ public interface CustomerRepository extends JpaRepository<Customer, Long> {
 //    Customer findByCa(String cardNumber);
 //    Customer findByAccountNumber(String accountNumber);
 
-    Customer findByAccounts(Account c);
+    Customer findByAccounts(Long id);
 
 }
