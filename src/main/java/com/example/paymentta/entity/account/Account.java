@@ -23,6 +23,8 @@ public class Account extends AbstractEntity {
     @Enumerated(EnumType.STRING)
     private AccountType accountType;
 
+    private Long accountNumber;
+
     private Long balance;
     @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     @JoinColumn(name = "customer_id")

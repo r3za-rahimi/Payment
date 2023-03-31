@@ -1,19 +1,11 @@
 package com.example.paymentta.service;
-
 import com.example.paymentta.entity.account.Account;
-import com.example.paymentta.entity.account.Card;
 import com.example.paymentta.exceptions.ServiceException;
 import com.example.paymentta.repository.AccountRepository;
-import com.example.paymentta.repository.CardRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class AccountService extends AbstractService<AccountRepository, Account> {
-
-    @Autowired
-    private CardService cardService;
-
 
     public Account withdraw(Account c, Long amount) throws ServiceException {
 
@@ -40,10 +32,17 @@ public class AccountService extends AbstractService<AccountRepository, Account> 
         return null;
     }
 
-    public Account getByAccount(String cardNumber) {
+    public Account getByCardNumber(String cardNumber) {
 
 
         return repository.findByCard_CardNumber(cardNumber);
+
+    }
+
+    public Account getByAccountNumber(String accountNumber ) {
+
+
+        return repository.findByAccountNumber(accountNumber);
 
     }
 

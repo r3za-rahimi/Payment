@@ -24,7 +24,6 @@ public class AbstractController <E,D , S extends AbstractService<? extends JpaRe
     @Transactional
     public void add(@Valid @RequestBody D d) throws ServiceException {
 
-
         service.insert(converter.convertDto(d));
     }
 

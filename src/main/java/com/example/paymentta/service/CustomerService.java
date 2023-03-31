@@ -18,33 +18,26 @@ import java.util.List;
 @Service
 public class CustomerService extends AbstractService<CustomerRepository , Customer> {
 
-    @Autowired
-    private AccountService accountService;
-
 
     @Override
     public void insert(Customer customer) throws ServiceException {
-
-
 
         List<Account> accounts = new ArrayList<>();
 
         Card c = new Card((long) (Math.random() * 100000000000000L), (long) (Math.random() * 10000 ), getExpireTime());
 
-        Account account = new Account(AccountType.JARI ,5000000L, customer , c);
+        Account account = new Account(AccountType.JARI , (long) (Math.random() * 4000000000000L) ,5000000L, customer , c);
         accounts.add(account);
-
 
         customer.setAccounts(accounts);
 
-        super.insert(customer);
+        repository.save(customer);
     }
 
 
     public Customer getById(Long accountId) {
 
         Customer c =  repository.findById(accountId).get();
-        System.out.println(c);
         if (c!= null){
 
             return c;

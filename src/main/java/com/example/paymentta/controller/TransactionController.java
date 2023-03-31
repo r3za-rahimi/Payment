@@ -17,7 +17,7 @@ public class TransactionController extends AbstractController<Transaction , Tran
     @PostMapping("/account")
     public void addA(@RequestBody TransactionDto transactionDto) throws ServiceException {
 
-        transactionDto.setType(TransactionType.ACCOUNT);
+        transactionDto.setType(TransactionType.ACCOUNT_NUMBER);
         service.insert(converter.convertDto(transactionDto));
 
     }

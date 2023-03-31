@@ -9,8 +9,6 @@ public class TransactionDto {
     private String source;
     private String destination;
     private Long amount;
-
-
     private TransactionType type;
 
 }

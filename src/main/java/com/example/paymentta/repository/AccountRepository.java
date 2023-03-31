@@ -8,4 +8,5 @@ public interface AccountRepository extends JpaRepository<Account , Long> {
 
 
     Account findByCard_CardNumber(String card);
+    Account findByAccountNumber(String accountNumber);
     }
