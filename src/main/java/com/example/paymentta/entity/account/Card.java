@@ -22,4 +22,7 @@ public class Card extends AbstractEntity {
 
 
 
+
+
+
 }

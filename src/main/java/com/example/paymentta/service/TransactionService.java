@@ -21,8 +21,6 @@ public class TransactionService extends AbstractService<TransactionRepository ,T
     @Autowired
     private AccountService accountService;
     @Autowired
-    private CustomerService customerService;
-    @Autowired
     private NotificationSender notificationSender;
 
     @Override
@@ -43,6 +41,8 @@ public class TransactionService extends AbstractService<TransactionRepository ,T
         }
 
 
+
+
         trx.setSender(sender.getCustomer());
         trx.setReceiver(receiver.getCustomer());
         trx.setDate(new Date());
@@ -55,6 +55,9 @@ public class TransactionService extends AbstractService<TransactionRepository ,T
 
 
     }
+
+
+
 //
 //
 //
