@@ -24,8 +24,8 @@ public class Customer extends AbstractEntity {
     @OneToMany(mappedBy = "customer" , cascade = CascadeType.ALL , fetch = FetchType.LAZY)
     private List<Account> accounts;
 
-    @OneToMany( cascade = CascadeType.ALL , fetch = FetchType.LAZY)
-    private List<Transaction> transaction;
+//    @OneToMany( cascade = CascadeType.ALL , fetch = FetchType.LAZY)
+//    private List<Transaction> transaction;
 
 
 }

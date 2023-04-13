@@ -7,32 +7,28 @@ import org.springframework.stereotype.Service;
 @Service
 public class AccountService extends AbstractService<AccountRepository, Account> {
 
-    public Account withdraw(Account c, Long amount) throws ServiceException {
+    public void withdraw(Account c, Long amount) throws ServiceException {
 
-        if (c != null && amount < c.getBalance()) {
+        if ( amount > c.getBalance()) {
 
-            c.setBalance(c.getBalance() - amount);
-            repository.save(c);
-
-            return c;
+           throw new ServiceException("low_Balance");
 
         }
-        return null;
+        c.setBalance(c.getBalance() - amount);
+//        repository.save(c);
+
+
     }
 
-    public Account deposit(Account c, Long amount) throws ServiceException {
-
-        if (c != null) {
+    public void deposit(Account c, Long amount) throws ServiceException {
 
             c.setBalance(c.getBalance() + amount);
-            repository.save(c);
-            return c;
+//            repository.save(c);
 
-        }
-        return null;
+
     }
 
-    public Account getByCardNumber(String cardNumber) {
+    public Account getByCardNumber(String cardNumber) throws ServiceException{
 
 
         return repository.findByCard_CardNumber(cardNumber);

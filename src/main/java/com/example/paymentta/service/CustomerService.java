@@ -2,6 +2,7 @@ package com.example.paymentta.service;
 
 
 import com.example.paymentta.entity.Customer;
+import com.example.paymentta.entity.Transaction;
 import com.example.paymentta.entity.account.Account;
 import com.example.paymentta.entity.account.AccountType;
 import com.example.paymentta.entity.account.Card;
@@ -23,10 +24,11 @@ public class CustomerService extends AbstractService<CustomerRepository , Custom
     public void insert(Customer customer) throws ServiceException {
 
         List<Account> accounts = new ArrayList<>();
+        List<Transaction> transactions = new ArrayList<>();
 
         Card c = new Card((long) (Math.random() * 100000000000000L), (long) (Math.random() * 10000 ), getExpireTime());
 
-        Account account = new Account(AccountType.JARI , (long) (Math.random() * 4000000000000L) ,5000000L, customer , c);
+        Account account = new Account(AccountType.JARI , (long) (Math.random() * 4000000000000L) ,5000000L, customer , c , transactions);
         accounts.add(account);
 
         customer.setAccounts(accounts);

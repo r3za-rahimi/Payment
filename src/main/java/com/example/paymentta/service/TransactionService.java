@@ -1,8 +1,7 @@
 package com.example.paymentta.service;
 
-import com.example.paymentta.entity.Customer;
+import com.example.paymentta.dto.OperationDto;
 import com.example.paymentta.entity.Transaction;
-import com.example.paymentta.entity.account.Account;
 import com.example.paymentta.exceptions.ServiceException;
 import com.example.paymentta.repository.TransactionRepository;
 
@@ -13,49 +12,37 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Service
 
-public class TransactionService extends AbstractService<TransactionRepository ,Transaction> {
+public class TransactionService extends AbstractService<TransactionRepository, Transaction> {
     @Autowired
     private AccountService accountService;
     @Autowired
     private NotificationSender notificationSender;
 
-    @Override
+
     @Transactional(rollbackFor = ServiceException.class)
-    public void insert(Transaction trx) throws ServiceException {
+    public void doTransaction(Transaction sender, Transaction receiver) throws ServiceException {
 
-        Account sender = accountService.withdraw(trx.getSenderAccount(), trx.getAmount());
+        accountService.withdraw(sender.getAccount() , sender.getAmount());
 
-
-        if (sender == null) {
-            throw new ServiceException(" your balance is not enough");
-        }
-
-        Account receiver = accountService.deposit(trx.getReceiverAccount(), trx.getAmount());
-
-        if (receiver == null) {
-            throw new ServiceException("receiver card number is not valid ");
-        }
+        accountService.deposit(receiver.getAccount(), receiver.getAmount());
 
 
 
-
-        trx.setSender(sender.getCustomer());
-        trx.setReceiver(receiver.getCustomer());
-        trx.setDate(new Date());
-        repository.save(trx);
+        repository.save(sender);
+        repository.save(receiver);
 
 
-        notificationSender.send(NotificationType.SMS, new NotificationText("Deduction money from your account ", sender.getCard().getCardNumber().toString(), trx.getAmount(), trx.getDate()));
-        notificationSender.send(NotificationType.SMS, new NotificationText("addition Money to your account", receiver.getCard().getCardNumber().toString(), trx.getAmount(), trx.getDate()));
-
+        notificationSender.send(NotificationType.SMS, new NotificationText("Deduction money from your account ", sender.getAccount().getCard().getCardNumber().toString(), sender.getAmount(), sender.getDate()));
+        notificationSender.send(NotificationType.SMS, new NotificationText("addition Money to your account", receiver.getAccount().getCard().getCardNumber().toString(), receiver.getAmount(), receiver.getDate()));
 
 
     }
-
 
 
 //
