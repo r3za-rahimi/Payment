@@ -1,6 +1,8 @@
 package com.example.paymentta.service;
 
 import com.example.paymentta.dto.OperationDto;
+import com.example.paymentta.dto.TransactionDto;
+import com.example.paymentta.dto.convertor.BaseConvertor;
 import com.example.paymentta.entity.Transaction;
 import com.example.paymentta.exceptions.ServiceException;
 import com.example.paymentta.repository.TransactionRepository;
@@ -28,10 +30,9 @@ public class TransactionService extends AbstractService<TransactionRepository, T
     @Transactional(rollbackFor = ServiceException.class)
     public void doTransaction(Transaction sender, Transaction receiver) throws ServiceException {
 
-        accountService.withdraw(sender.getAccount() , sender.getAmount());
+        accountService.withdraw(sender.getAccount(), sender.getAmount());
 
         accountService.deposit(receiver.getAccount(), receiver.getAmount());
-
 
 
         repository.save(sender);
@@ -45,14 +46,11 @@ public class TransactionService extends AbstractService<TransactionRepository, T
     }
 
 
-//
-//
-//
-//    public void getTransactions(String carNumber, String cardNumber2, Date start, Date end) {
-//
-//
-////        List<Transaction> transactions = transactionRepository.findBySenderCardNumberOrRecieverCardNumberAndDateBetween(carNumber, cardNumber2, start, end);
-//
-////        System.out.println(transactions);
-//    }
+    public List<Transaction> transactionList(Long accountId) {
+        System.out.print( repository.findByAccount_Id(accountId));
+        return repository.findByAccount_Id(accountId);
+    }
+
+
+
 }

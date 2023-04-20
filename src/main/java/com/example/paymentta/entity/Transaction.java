@@ -3,37 +3,32 @@ package com.example.paymentta.entity;
 import com.example.paymentta.entity.account.Account;
 import com.example.paymentta.entity.account.DealType;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import org.hibernate.envers.Audited;
+import org.hibernate.envers.RelationTargetAuditMode;
 
 import java.util.Date;
 import java.util.List;
 
 @Entity
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Transaction extends AbstractEntity{
+@Audited(targetAuditMode = RelationTargetAuditMode.AUDITED)
+public class Transaction extends AbstractEntity {
 
 
     private Date date;
-//    @ManyToOne
-//    @JoinColumn(name = "sender_id")
-//    private Customer sender;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "account_id")
     private Account account;
-//    private Account senderAccount;
-//    @ManyToOne
-//    @JoinColumn(name = "receiver_id")
-//    private Customer receiver;
 
-//    @OneToOne
-//    private Account receiverAccount;
     private Long amount;
 
+    @Enumerated(EnumType.STRING)
+    private TransactionType transactionType;
     @Enumerated(EnumType.STRING)
     private DealType dealType;
 }

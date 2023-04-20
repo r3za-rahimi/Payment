@@ -37,36 +37,36 @@ public class ControllersAspect {
     }
 
 
-    @Around("within(com.example.paymentta.controller.AbstractController+ )")
-    public void around(ProceedingJoinPoint joinPoint ) throws Throwable {
-
-        LogModel logModel = new LogModel();
-        logModel.setMethodName(joinPoint.getSignature().getName());
-
-        logModel.setRequest(joinPoint.getArgs() );
-
-        Object value;
-        try {
-            value = joinPoint.proceed();
-            if (value !=null){
-                logModel.setResponse(value);
-            }
-            log.info("Success req" + objectMapper.writeValueAsString(logModel));
-        } catch (Throwable e) {
-
-
-            StringWriter writer = new StringWriter();
-            PrintWriter printWriter = new PrintWriter(writer);
-            e.printStackTrace(printWriter);
-            writer.close();
-            printWriter.close();
-            logModel.setErrorTrace(writer.toString());
-            log.error("Failure req " + objectMapper.writeValueAsString(logModel));
-            throw e;
-
-        }
-
-
-    }
+//    @Around("within(com.example.paymentta.controller.AbstractController+ )")
+//    public void around(ProceedingJoinPoint joinPoint ) throws Throwable {
+//
+//        LogModel logModel = new LogModel();
+//        logModel.setMethodName(joinPoint.getSignature().getName());
+//
+//        logModel.setRequest(joinPoint.getArgs() );
+//
+//        Object value;
+//        try {
+//            value = joinPoint.proceed();
+//            if (value !=null){
+//                logModel.setResponse(value);
+//            }
+//            log.info("Success req" + objectMapper.writeValueAsString(logModel));
+//        } catch (Throwable e) {
+//
+//
+//            StringWriter writer = new StringWriter();
+//            PrintWriter printWriter = new PrintWriter(writer);
+//            e.printStackTrace(printWriter);
+//            writer.close();
+//            printWriter.close();
+//            logModel.setErrorTrace(writer.toString());
+//            log.error("Failure req " + objectMapper.writeValueAsString(logModel));
+//            throw e;
+//
+//        }
+//
+//
+//    }
 
 }

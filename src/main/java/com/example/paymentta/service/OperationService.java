@@ -3,6 +3,7 @@ package com.example.paymentta.service;
 import com.example.paymentta.dto.OperationDto;
 import com.example.paymentta.entity.Operation;
 import com.example.paymentta.entity.Transaction;
+import com.example.paymentta.entity.TransactionType;
 import com.example.paymentta.entity.account.Account;
 import com.example.paymentta.entity.account.DealType;
 import com.example.paymentta.exceptions.ServiceException;
@@ -36,7 +37,7 @@ public class OperationService {
 
                 }
 
-                Transaction senderTrx = new Transaction(new Date(), senderAccount, operation.getAmount(), DealType.WITHDRAW);
+                Transaction senderTrx = new Transaction(new Date(), senderAccount, operation.getAmount(), TransactionType.CARDTOCARD, DealType.WITHDRAW);
 
 
                 Account receiverAccount = accountService.getByCardNumber(operation.getDestination());
@@ -47,7 +48,7 @@ public class OperationService {
 
                 }
 
-                Transaction receiverTrx = new Transaction(new Date(), receiverAccount, operation.getAmount(), DealType.DEPOSIT);
+                Transaction receiverTrx = new Transaction(new Date(), receiverAccount, operation.getAmount(), TransactionType.CARDTOCARD, DealType.DEPOSIT);
 
 
                 transactionService.doTransaction(senderTrx, receiverTrx);
@@ -61,7 +62,7 @@ public class OperationService {
                     throw new ServiceException("invalid_Sender_AccountNumber");
 
                 }
-                Transaction senderTrx = new Transaction(new Date(), senderAccount, operation.getAmount(), DealType.WITHDRAW);
+                Transaction senderTrx = new Transaction(new Date(), senderAccount, operation.getAmount(), TransactionType.ACCOUNT_NUMBER, DealType.WITHDRAW);
                 Account receiverAccount = accountService.getByAccountNumber(operation.getDestination());
                 if (receiverAccount == null) {
 
@@ -69,7 +70,7 @@ public class OperationService {
 
                 }
 
-                Transaction receiverTrx = new Transaction(new Date(), receiverAccount, operation.getAmount(), DealType.DEPOSIT);
+                Transaction receiverTrx = new Transaction(new Date(), receiverAccount, operation.getAmount(), TransactionType.ACCOUNT_NUMBER, DealType.DEPOSIT);
 
                 transactionService.doTransaction(senderTrx, receiverTrx);
             }

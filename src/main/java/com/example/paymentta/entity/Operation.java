@@ -1,6 +1,5 @@
 package com.example.paymentta.entity;
 
-import com.example.paymentta.dto.TransactionType;
 import lombok.Data;
 
 @Data

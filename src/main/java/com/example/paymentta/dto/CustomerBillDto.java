@@ -9,7 +9,7 @@ import java.util.Date;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class CustomerBillDto {
+public class CustomerBillDto extends AbstractDto {
 
     private Long Id;
 

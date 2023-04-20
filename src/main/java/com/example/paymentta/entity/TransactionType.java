@@ -1,4 +1,4 @@
-package com.example.paymentta.dto;
+package com.example.paymentta.entity;
 
 public enum TransactionType {
 

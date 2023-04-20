@@ -1,7 +1,7 @@
-package com.example.paymentta.controller.aspects;
+package com.example.paymentta.controller;
 
 import com.example.paymentta.dto.OperationDto;
-import com.example.paymentta.dto.TransactionType;
+import com.example.paymentta.entity.TransactionType;
 import com.example.paymentta.dto.convertor.BaseConvertor;
 import com.example.paymentta.entity.Operation;
 import com.example.paymentta.exceptions.ServiceException;

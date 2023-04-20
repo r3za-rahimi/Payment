@@ -29,15 +29,4 @@ public abstract class AbstractService <R extends JpaRepository<E, Long> , E>{
     }
 
 
-    //    public  E getById(Long id) throws ServiceException {
-//
-//        try {
-//            return (E) repository.findById(id)
-//                    .orElseThrow(()->new ServiceException("customer not found"));
-//        } catch (Throwable e) {
-//            throw new RuntimeException(e);
-//        }
-//
-//
-//    }
 }

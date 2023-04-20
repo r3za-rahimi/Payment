@@ -21,11 +21,7 @@ public class CustomerBillController extends AbstractController<CustomerBill, Cus
        return converter.convertEntity(service.getBill(number));
     }
 
-   @PostMapping("/postNumber")
-    public String getBill(@RequestBody Map<String,Long> number){
 
-        return "ssss";
-    }
 
 
 
