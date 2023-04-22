@@ -3,9 +3,7 @@ package com.example.paymentta.entity;
 import com.example.paymentta.entity.account.Account;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.envers.Audited;
 import org.hibernate.envers.RelationTargetAuditMode;
 import org.hibernate.validator.constraints.UniqueElements;
@@ -19,6 +17,9 @@ import java.util.Objects;
 @Getter
 @Setter
 @EntityListeners(AuditingEntityListener.class)
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 public class Customer extends AbstractEntity {
 
 

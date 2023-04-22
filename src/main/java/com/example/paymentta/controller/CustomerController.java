@@ -13,9 +13,9 @@ import org.springframework.web.bind.annotation.*;
 public class CustomerController extends  AbstractController<Customer , CustomerDto , CustomerService> {
 
 
-
-
-
-
-
+    @Override
+    @GetMapping("/{id}")
+    public CustomerDto get(@PathVariable Long id) throws ServiceException {
+        return super.get(id);
+    }
 }

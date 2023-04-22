@@ -8,7 +8,6 @@ import com.example.paymentta.entity.account.AccountType;
 import com.example.paymentta.entity.account.Card;
 import com.example.paymentta.exceptions.ServiceException;
 import com.example.paymentta.repository.CustomerRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -21,7 +20,7 @@ public class CustomerService extends AbstractService<CustomerRepository , Custom
 
 
     @Override
-    public void insert(Customer customer) throws ServiceException {
+    public Customer insert(Customer customer) throws ServiceException {
 
         List<Account> accounts = new ArrayList<>();
         List<Transaction> transactions = new ArrayList<>();
@@ -33,9 +32,15 @@ public class CustomerService extends AbstractService<CustomerRepository , Custom
 
         customer.setAccounts(accounts);
 
-        repository.save(customer);
+      return repository.save(customer);
     }
 
+
+    public Customer update(Customer c){
+
+        return repository.save(c);
+
+    }
 
     public Customer getById(Long accountId) {
 

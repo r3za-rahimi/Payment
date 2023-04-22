@@ -1,12 +1,9 @@
 package com.example.paymentta.service;
 
-import com.example.paymentta.dto.CustomerDto;
 import com.example.paymentta.entity.Customer;
 import com.example.paymentta.exceptions.ServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
-
-import java.util.Optional;
 
 public abstract class AbstractService <R extends JpaRepository<E, Long> , E>{
 
@@ -14,18 +11,20 @@ public abstract class AbstractService <R extends JpaRepository<E, Long> , E>{
     protected  R repository;
 
 
-    public void insert(E e) throws ServiceException {
+    public E insert(E e) throws ServiceException {
 
-        repository.save(e);
+        return repository.save(e);
+
     }
 
-    public void update(E e) throws ServiceException {
+    public Customer update(E e) throws ServiceException {
         repository.save(e);
+        return null;
     }
 
 
-    public Optional<E> findById(Long id) throws Exception {
-        return repository.findById(id);
+    public E findById(Long id) throws ServiceException {
+        return repository.findById(id).get();
     }
 
 
